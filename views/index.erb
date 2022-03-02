@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>LiT Messanger</title>
+</head>
+<body>
+	<h1>LiT Messanger</h1>
+	<p><%= @user %></p>
+	<h2>ログイン</h2>
+	<form action="/signin" method="post">
+		名前<input type=text name="name">
+		パスワード<input type="password" name="password">
+		<input type="submit" value="ログイン">
+	</form>
+</body>
+</html>
