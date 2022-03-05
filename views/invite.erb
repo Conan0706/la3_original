@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Invite</title>
+</head>
+<body>
+    <h1><%= @nowgroup.name %></h1>
+    <h2>参加メンバー</h2>
+    <% if !@nowgroup.nil? %>
+        <% @members.each do |member| %>
+            <% if member.group_id == @nowgroup.id %>
+                <% group_user = User.find_by(id: member.user_id) %>
+                <p><%= group_user.name %></p>
+            <% end %>
+        <% end %>
+    <% end %>
+    <h1>メンバーを招待</h1>
+    <form action="/invite" method="get">
+        <input type="text" name="keyward" placeholder="ユーザー名">
+        <input type="submit" value="検索">
+    </form>
+
+    <p>メンバー：</p>
+    <% if !@keyward_users.nil? %>
+        <% @keyward_users.each do |user| %>
+            <form action="/invite" method="post">
+                <%= user %>
+                <% user_name = User.find_by(name:user) %>
+                <input type="hidden" name="group_id" value="<%= @nowgroup.id %>">
+                <input type="hidden" name="user_id" value="<%= user_name.id %>">
+                <input type="submit" value="+">
+            </form>
+        <% end %>
+    <% end %>
+    <p><a href="/list" action="get">完了</p>
+</body>
+</html>

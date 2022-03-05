@@ -6,7 +6,9 @@
 </head>
 <body>
 	<h1>LiT Messanger</h1>
-	<p><%= @user %></p>
+	<% if !@user.nil? %>
+		<p><%= @user.name %></p>
+	<% end %>
 	<h2>ログイン</h2>
 	<form action="/signin" method="post">
 		名前<input type=text name="name">

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Chat</title>
+</head>
+<body>
+    <h1>トークルーム</h1>
+    <div>
+        <h1><%= @group_name %></h1>
+            <% @members.each do |member| %>
+                <% if member.group_id == @group %>
+                    <% user = member.user_id %>
+                    <% user_name = User.find_by(id: user) %>
+                    <%= user_name.name %>
+                <% end %>
+            <% end %>
+    </div>
+    <div>
+        <% if !@chats.nil? %>
+           <% @chats.each do |chat| %>
+                <% if chat.group_id == @group.id %>
+                        <% user = User.find_by(id: chat.user_id) %>
+                        <p><b><%= user.name %></b></p>
+                        <p><%= chat.comment %></p>
+                        
+                <% end %>
+            <% end %>
+        <% else %>
+            <p>まだ会話なし</p>
+        <% end %>
+    </div>
+    
+    <form action="/chat" method="post">
+        <input type="text" name="comment">
+        <input type="hidden" name="user_id" value="<%= @current_user.id %>">
+        <input type="hidden" name="group_id" value="<%= @group.id %>">
+        <input type = "file" name="image"> 
+        <input type="submit" value="送信">
+    </form>
+    
+</body>

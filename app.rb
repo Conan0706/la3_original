@@ -11,11 +11,21 @@ require 'dotenv/load'
 
 enable :sessions
 
-before do
+helpers do
     def  current_user
         User.find_by(id: session[:user])
     end
     
+    def current_group
+        Group.find_by(id: session[:group])
+    end
+    
+    def current_chat
+        Chat.find_by(id: session[:chat])
+    end
+end
+
+before do
     Dotenv.load
     Cloudinary.config do |config|
         config.cloud_name = ENV["CLOUD_NAME"]
@@ -24,8 +34,13 @@ before do
     end
 end
 
+before "/invite" do
+    @members = Member.all
+    @nowgroup = Group.find_by(id: session[:group])
+end
+
 get "/" do
-    @user = current_user.name
+    @user = current_user
     erb :index
 end
 
@@ -55,8 +70,87 @@ post "/signin" do
     @user=User.find_by(name: params[:name])
     if @user && @user.authenticate(params[:password])
         session[:user] = @user.id
-        redirect "/"
+        redirect "/home"
     else
         redirect "/"
     end
 end
+
+get "/home" do
+    erb :home
+end
+
+get "/group" do
+    erb :group
+end
+
+get "/invite" do
+    @keyward_users=[]
+    @users=User.all
+    @users.each do |user|
+        if user.name == params[:keyward]
+            @keyward_users.push(user.name)
+        end
+    end
+    erb :invite
+end
+
+post "/create_group" do
+    @group = Group.create(
+        name: params[:name]
+    )
+    Member.create(
+        user_id: current_user.id,
+        group_id: @group.id
+    )
+    session[:group] = @group.id
+    redirect "/invite"
+end
+
+post "/invite" do
+    @member = Member.create(
+        user_id: params[:user_id],
+        group_id: params[:group_id]
+    )
+    redirect "/invite"
+end
+
+get "/list" do
+    @nowuser = current_user
+    @nowuser_group = Member.find_by(user_id: @nowuser.id)
+    @groups = Group.all
+    @current_group = current_group
+    @members =Member.all
+    erb :list
+end
+
+get "/chat" do
+    if !params[:group_id].nil?
+        @group = Group.find_by(id: params[:group_id])
+        
+    else
+        @group = Group.find_by(id: current_chat.group_id)
+    end
+    @current_user = current_user
+    session[:group] = @group
+    @members = Member.all
+    @group_name = current_group.name
+    @chats = Chat.all
+    erb :chat
+end
+
+post "/chat" do
+    @chat = Chat.create(
+        user_id: params[:user_id],
+        comment: params[:comment],
+        group_id: params[:group_id],
+        image: params[:image]
+    )
+    @group = params[:group_id]
+    session[:chat] = @chat
+    
+    redirect "/chat"
+end
+  
+        
+        
