@@ -70,11 +70,17 @@ post "/signin" do
     @user=User.find_by(name: params[:name])
     if @user && @user.authenticate(params[:password])
         session[:user] = @user.id
-        redirect "/home"
+        redirect "/list"
     else
         redirect "/"
     end
 end
+
+get "/signout" do
+    session[:user] = nil
+    redirect "/"
+end
+
 
 get "/home" do
     erb :home
@@ -118,7 +124,7 @@ end
 get "/list" do
     @nowuser = current_user
     @nowuser_group = Member.find_by(user_id: @nowuser.id)
-    @groups = Group.all
+    @users = User.all
     @current_group = current_group
     @members =Member.all
     erb :list
@@ -129,13 +135,14 @@ get "/chat" do
         @group = Group.find_by(id: params[:group_id])
         
     else
-        @group = Group.find_by(id: current_chat.group_id)
+        @group = Group.find_by(id: current_group.id)
     end
     @current_user = current_user
     session[:group] = @group
     @members = Member.all
     @group_name = current_group.name
     @chats = Chat.all
+    @tasks = Task.all
     erb :chat
 end
 
@@ -151,6 +158,23 @@ post "/chat" do
     
     redirect "/chat"
 end
-  
-        
-        
+
+post "/task" do
+    Task.create(
+        user_id: params[:user_id],
+        todo: params[:todo],
+        due_date: params[:due_date],
+        done: params[:done]
+    )
+    
+    
+    
+    redirect "/chat"
+end
+
+post "/task/:id/done" do
+    task = Task.find(params[:id])
+    task.done =! task.done
+    task.save
+    redirect "/chat"
+end

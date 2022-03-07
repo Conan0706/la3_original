@@ -25,6 +25,10 @@ class Member < ActiveRecord::Base
 end
 
 class Chat < ActiveRecord::Base
-    belongs_to :user
-    belongs_to :group
+    belongs_to :user;
+    belongs_to :group;
+end
+
+class Task < ActiveRecord::Base
+    belongs_to :user;
 end

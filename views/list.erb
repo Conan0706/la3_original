@@ -3,23 +3,44 @@
 <head>
 	<meta charset="UTF-8">
 	<title>List</title>
+	<link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
+    <nav>
+        <ul>
+            <li>
+                <a href="/group">新規グループ作成</a>
+            </li>
+            <li>
+                <a href="/signup">新規メンバー登録</a>
+            </li>
+            <li>
+                <a href="/signout">ログアウト</a>
+            </li>
+        </ul>
+    </nav>    
     <div>
-        <% @groups.each do |group| %>
-            <h1>グループ名：</h1> 
-            <p><%= group.name %></p>
-            <h1>参加メンバー</h1>
+        <% if Member.find_by(user_id: current_user) %>
             <% @members.each do |member| %>
-                <% if member.group_id == group.id %>
-                    <% join_user = User.find_by(id: member.user_id) %>
-                    <p><%= join_user.name %></p>
+                <% if @nowuser.id == member.user_id %>
+                    <% group = Group.find_by(id: member.group_id) %>
+                    <h1>グループ名：</h1> 
+                    <p><%= group.name %></p>
+                    <h1>参加メンバー</h1>
+                    <% @members.each do |member| %>
+                        <% if member.group_id == group.id %>
+                            <% user = User.find_by(id: member.user_id) %>
+                            <p><%= user.name %></p>
+                        <% end %>
+                    <% end %>
+                    <form action="/chat" method="get">
+                        <input type="hidden" name="group_id" value="<%= group.id %>">
+                        <input type="submit" value="トークルームへ">
+                    </form>
                 <% end %>
             <% end %>
-            <form action="/chat" method="get">
-                <input type="hidden" name="group_id" value="<%= group.id %>">
-                <input type="submit" value="トークルームへ">
-            </form>
+        <% else %>
+            <h1>参加しているグループはありません</h1>
         <% end %>
     </div>
 </body>
