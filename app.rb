@@ -167,8 +167,6 @@ post "/task" do
         done: params[:done]
     )
     
-    
-    
     redirect "/chat"
 end
 

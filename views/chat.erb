@@ -31,7 +31,7 @@
         <% end %>
         <form action="/task" method="post">
             <input type="text" name="todo" placeholder="タスク内容">
-            <input type="datetime" name="due_date" placeholder="締め切り">
+            <input type="date" name="due_date" placeholder="締め切り">
             <input type="hidden" name="user_id" value="<%= current_user.id %>">
             <input type="hidden" name="done" value="false">
             <input type="submit" value="作成！">
