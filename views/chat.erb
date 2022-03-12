@@ -54,6 +54,9 @@
                     <% user = User.find_by(id: chat.user_id) %>
                     <p><b><%= user.name %></b></p>
                     <p><%= chat.comment %></p>
+                    <% if !chat.image.nil? %>
+                        <img src="<%= chat.image %>" width="125" height="125">
+                    <% end %>
                 <% end %>
             <% end %>
         <% else %>
@@ -61,11 +64,11 @@
         <% end %>
     </div>
     
-    <form action="/chat" method="post">
+    <form action="/chat" method="post" enctype="multipart/form-data">
         <input type="text" name="comment">
         <input type="hidden" name="user_id" value="<%= @current_user.id %>">
         <input type="hidden" name="group_id" value="<%= @group.id %>">
-        <input type = "file" name="image"> 
+        <input type = "file" name="image" placeholder="写真"> 
         <input type="submit" value="送信">
     </form>
     

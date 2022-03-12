@@ -147,12 +147,19 @@ get "/chat" do
 end
 
 post "/chat" do
+    
+    img=params[:image]
+    tempfile = img[:tempfile]
+    upload = Cloudinary::Uploader.upload(tempfile.path)
+    img_url = upload["url"]
+    
     @chat = Chat.create(
         user_id: params[:user_id],
         comment: params[:comment],
         group_id: params[:group_id],
-        image: params[:image]
+        image: img_url
     )
+    
     @group = params[:group_id]
     session[:chat] = @chat
     
