@@ -11,6 +11,9 @@
         <% @members.each do |member| %>
             <% if member.group_id == @nowgroup.id %>
                 <% group_user = User.find_by(id: member.user_id) %>
+                <% if !group_user.nil? %>
+                    <img src="<%= group_user.image %>" width="125" height="125">
+                <% end %>            
                 <p><%= group_user.name %></p>
             <% end %>
         <% end %>

@@ -7,6 +7,8 @@
 <body>
 
     <h1>トークルーム</h1>
+    <p><a href="/list">戻る</a></p>
+    <p><a href="/invite">メンバー追加</a></p>
     <%= @group.name %>
     <div>
         <h1>ToDo</h1>
@@ -42,8 +44,11 @@
             <% @members.each do |member| %>
                 <% if member.group_id == @group %>
                     <% user = member.user_id %>
-                    <% user_name = User.find_by(id: user) %>
-                    <%= user_name.name %>
+                    <% group_user = User.find_by(id: user) %>
+                    <% if !group_user.nil? %>
+                        <img src="<%= chat.image %>" width="125" height="125">
+                    <% end %>
+                    <%= group_user.name %>
                 <% end %>
             <% end %>
     </div>
@@ -52,6 +57,10 @@
            <% @chats.each do |chat| %>
                 <% if chat.group_id == @group.id %>
                     <% user = User.find_by(id: chat.user_id) %>
+                    <% if !user.image.nil? %>
+                        <img src="<%= user.image %>" width="50" height="50">
+                    <% end %>
+                    <br>
                     <p><b><%= user.name %></b></p>
                     <p><%= chat.comment %></p>
                     <% if !chat.image.nil? %>
