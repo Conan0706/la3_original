@@ -28,6 +28,17 @@
                             <form action="/task/<%= task.id %>/done" method="post">
                                 <p><input type="submit" value="<%= task.done %>"></p>
                             </form>
+                            <a href="#inline" class="inline">編集</a>
+                            <div id="inline" style="display:none;">
+                                <form action="/task/<%= task.id %>/edit" method="post">
+                                    <input type="text" name="todo" value="<%= task.todo %>">
+                                    <input type="date" name="due_date" value="<%= task.due_date %>">
+                                    <p><input type="submit" value="変更を確定"></p>
+                                </form>
+                            </div>
+                            <form action="/task/<%= task.id %>/delete" method="post">
+                                <p><input type="submit" value="削除"></p>
+                            </form>
                         <% end %>
                     <% end %>
                 <% end %>

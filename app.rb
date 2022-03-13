@@ -183,3 +183,19 @@ post "/task/:id/done" do
     task.save
     redirect "/chat"
 end
+
+post "/task/:id/edit" do
+    task = Task.find(params[:id])
+    task.update({
+        todo: params[:todo],
+        due_date: params[:due_date]
+    })
+    
+    redirect "/chat"
+end
+
+post "/task/:id/delete" do
+    task = Task.find(params[:id])
+    task.destroy
+    redirect "/chat"
+end
