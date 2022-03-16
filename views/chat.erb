@@ -7,51 +7,70 @@
     <link rel="stylesheet" href="css/modaal.min.css">
 </head>
 <body>
-    <h1>トークルーム</h1>
+    
     <p><a href="/list">戻る</a></p>
     <p><a href="/invite">メンバー追加</a></p>
-    <%= @group.name %>
+    <h1><%= @group.name %></h1>
         <h1>ToDo</h1>
         <a href="/task/done" method="get">未達成</a>
         <a href="/task/date" method="get">日付</a>
+        
                 <% if !@tasks.nil? %>
+                <table>
                     <% @members.each do |member| %>
                         <% if member.group_id == @group.id %>
                             <% user = User.find_by(id: member.user_id) %>
                             <% @tasks.each do |task| %>
-                                <% if task.user_id == user.id %>
-                                    <p><%= user.name %></p>
-                                    <p><%= task.todo %></p>
-                                    <p><%= task.due_date %></p>
-                                    <form action="/task/<%= task.id %>/done" method="post">
-                                        <p><input type="submit" value="<%= task.done %>"></p>
-                                    </form>
-                                    <a href="#inline" class="inline">編集</a>
-                                    <div id="inline" style="display:none;">
-                                        <form action="/task/<%= task.id %>/edit" method="post">
-                                            <input type="text" name="todo" value="<%= task.todo %>">
-                                            <input type="date" name="due_date" value="<%= task.due_date %>">
-                                            <p><input type="submit" value="変更を確定"></p>
-                                        </form>
-                                    </div>
-                                    <form action="/task/<%= task.id %>/delete" method="post">
-                                        <p><input type="submit" value="削除"></p>
-                                    </form>
-                                <% end %>
+                                <div class="todo">
+                                    <% if task.user_id == user.id %>
+                                        
+                                            <tr>
+                                                <td class="name"><p><%= user.name %></p></td>
+                                                <td class="todo"><p><%= task.todo %></p></td>
+                                                <td class><p><%= task.due_date %></p></td>
+                                                <td>
+                                                    <form action="/task/<%= task.id %>/done" method="post">
+                                                        <p><input type="submit" value="<%= task.done %>"></p>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <a href="#inline" class="inline">編集</a>
+                                                </td>
+                                                <td>
+                                                    <div id="inline" style="display:none;">
+                                                        <form action="/task/<%= task.id %>/edit" method="post">
+                                                            <input type="text" name="todo" value="<%= task.todo %>">
+                                                            <input type="date" name="due_date" value="<%= task.due_date %>">
+                                                            <p><input type="submit" value="変更を確定"></p>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <form action="/task/<%= task.id %>/delete" method="post">
+                                                        <p><input type="submit" value="削除"></p>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        
+                                    <% end %>
+                                </div>
                             <% end %>
                         <% end %>
                     <% end %>
+                </table>
                 <% else %>
                     <p>タスクがありません</p>
                 <% end %>
-                <form action="/task" method="post">
-                    <input type="text" name="todo" placeholder="タスク内容">
-                    <input type="date" name="due_date" placeholder="締め切り">
-                    <input type="hidden" name="user_id" value="<%= current_user.id %>">
-                    <input type="hidden" name="done" value="false">
-                    <input type="submit" value="作成！">
-                </form>
-    
+                <div class="register">
+                    <form action="/task" method="post">
+                        <input type="text" name="todo" placeholder="タスク内容">
+                        <input type="date" name="due_date" placeholder="締め切り">
+                        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+                        <input type="hidden" name="done" value="false">
+                        <input type="submit" value="作成！">
+                    </form>
+                </div>
+
                 <div>
                     <h1><%= @group_name %></h1>
                     <% @members.each do |member| %>

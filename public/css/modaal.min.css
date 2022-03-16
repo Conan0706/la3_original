@@ -35,3 +35,30 @@
   grid-row: 2;
   grid-column: 1;
 }
+
+h1{
+    text-align: center;
+}
+
+p{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.todo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+td{
+    text-align: center;
+}
+
+table{
+    margin: 0 auto;
+}
+
+.register{
+    text-align:center;
+}
