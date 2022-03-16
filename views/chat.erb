@@ -7,85 +7,83 @@
     <link rel="stylesheet" href="css/modaal.min.css">
 </head>
 <body>
-
-
-    
     <h1>トークルーム</h1>
     <p><a href="/list">戻る</a></p>
     <p><a href="/invite">メンバー追加</a></p>
     <%= @group.name %>
-    <div>
         <h1>ToDo</h1>
-        <% if !@tasks.nil? %>
-            <% @members.each do |member| %>
-                <% if member.group_id == @group.id %>
-                    <% user = User.find_by(id: member.user_id) %>
-                    <% @tasks.each do |task| %>
-                        <% if task.user_id == user.id %>
-                            <p><%= user.name %></p>
-                            <p><%= task.todo %></p>
-                            <p><%= task.due_date %></p>
-                            <form action="/task/<%= task.id %>/done" method="post">
-                                <p><input type="submit" value="<%= task.done %>"></p>
-                            </form>
-                            <a href="#inline" class="inline">編集</a>
-                            <div id="inline" style="display:none;">
-                                <form action="/task/<%= task.id %>/edit" method="post">
-                                    <input type="text" name="todo" value="<%= task.todo %>">
-                                    <input type="date" name="due_date" value="<%= task.due_date %>">
-                                    <p><input type="submit" value="変更を確定"></p>
-                                </form>
-                            </div>
-                            <form action="/task/<%= task.id %>/delete" method="post">
-                                <p><input type="submit" value="削除"></p>
-                            </form>
+        <a href="/task/done" method="get">未達成</a>
+        <a href="/task/date" method="get">日付</a>
+                <% if !@tasks.nil? %>
+                    <% @members.each do |member| %>
+                        <% if member.group_id == @group.id %>
+                            <% user = User.find_by(id: member.user_id) %>
+                            <% @tasks.each do |task| %>
+                                <% if task.user_id == user.id %>
+                                    <p><%= user.name %></p>
+                                    <p><%= task.todo %></p>
+                                    <p><%= task.due_date %></p>
+                                    <form action="/task/<%= task.id %>/done" method="post">
+                                        <p><input type="submit" value="<%= task.done %>"></p>
+                                    </form>
+                                    <a href="#inline" class="inline">編集</a>
+                                    <div id="inline" style="display:none;">
+                                        <form action="/task/<%= task.id %>/edit" method="post">
+                                            <input type="text" name="todo" value="<%= task.todo %>">
+                                            <input type="date" name="due_date" value="<%= task.due_date %>">
+                                            <p><input type="submit" value="変更を確定"></p>
+                                        </form>
+                                    </div>
+                                    <form action="/task/<%= task.id %>/delete" method="post">
+                                        <p><input type="submit" value="削除"></p>
+                                    </form>
+                                <% end %>
+                            <% end %>
                         <% end %>
                     <% end %>
+                <% else %>
+                    <p>タスクがありません</p>
                 <% end %>
-            <% end %>
-        <% else %>
-            <p>タスクがありません</p>
-        <% end %>
-        <form action="/task" method="post">
-            <input type="text" name="todo" placeholder="タスク内容">
-            <input type="date" name="due_date" placeholder="締め切り">
-            <input type="hidden" name="user_id" value="<%= current_user.id %>">
-            <input type="hidden" name="done" value="false">
-            <input type="submit" value="作成！">
-        </form>
-    </div>
-    <div>
-        <h1><%= @group_name %></h1>
-            <% @members.each do |member| %>
-                <% if member.group_id == @group %>
-                    <% user = member.user_id %>
-                    <% group_user = User.find_by(id: user) %>
-                    <% if !group_user.nil? %>
-                        <img src="<%= chat.image %>" width="125" height="125">
+                <form action="/task" method="post">
+                    <input type="text" name="todo" placeholder="タスク内容">
+                    <input type="date" name="due_date" placeholder="締め切り">
+                    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+                    <input type="hidden" name="done" value="false">
+                    <input type="submit" value="作成！">
+                </form>
+    
+                <div>
+                    <h1><%= @group_name %></h1>
+                    <% @members.each do |member| %>
+                        <% if member.group_id == @group %>
+                            <% user = member.user_id %>
+                            <% group_user = User.find_by(id: user) %>
+                            <% if !group_user.nil? %>
+                                <img src="<%= chat.image %>" width="125" height="125">
+                            <% end %>
+                            <%= group_user.name %>
+                        <% end %>
                     <% end %>
-                    <%= group_user.name %>
-                <% end %>
-            <% end %>
-    </div>
-    <div>
-        <% if !@chats.nil? %>
-           <% @chats.each do |chat| %>
-                <% if chat.group_id == @group.id %>
-                    <% user = User.find_by(id: chat.user_id) %>
-                    <% if !user.image.nil? %>
-                        <img src="<%= user.image %>" width="50" height="50">
+                </div>
+                <div>
+                    <% if !@chats.nil? %>
+                       <% @chats.each do |chat| %>
+                            <% if chat.group_id == @group.id %>
+                                <% user = User.find_by(id: chat.user_id) %>
+                                <% if !user.image.empty? %>
+                                    <img src="<%= user.image %>" width="50" height="50">
+                                <% end %>
+                                <p><b><%= user.name %></b></p>
+                                <p><%= chat.comment %></p>
+                                <% if !chat.image.empty? %>
+                                    <a href="<%= chat.image %>" class="image" data-modaal-desc="ディスクリプション"><img src="<%= chat.image %>" width="125" height="125"></a>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    <% else %>
+                        <p>まだ会話なし</p>
                     <% end %>
-                    <p><b><%= user.name %></b></p>
-                    <p><%= chat.comment %></p>
-                    <% if !chat.image.nil? %>
-                        <a href="<%= chat.image %>" class="image" data-modaal-desc="ディスクリプション"><img src="<%= chat.image %>" width="125" height="125"></a>
-                    <% end %>
-                <% end %>
-            <% end %>
-        <% else %>
-            <p>まだ会話なし</p>
-        <% end %>
-    </div>
+                </div>
     
     <form action="/chat" method="post" enctype="multipart/form-data">
         <input type="text" name="comment">

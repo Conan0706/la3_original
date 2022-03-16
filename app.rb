@@ -11,6 +11,7 @@ require 'dotenv/load'
 
 enable :sessions
 
+
 helpers do
     def  current_user
         User.find_by(id: session[:user])
@@ -198,4 +199,18 @@ post "/task/:id/delete" do
     task = Task.find(params[:id])
     task.destroy
     redirect "/chat"
+end
+
+get "/task/done" do
+    @tasks = Task.where(done: false)
+    erb :chat
+end
+
+post "/sign_up" do
+    pass = params[:signup_pass]
+    if pass == "lit-mentor"
+        redirect "/signup"
+    else
+        redirect "/"
+    end
 end

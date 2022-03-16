@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 	<title>List</title>
 	<link rel="stylesheet" href="/css/list.css">
 </head>
@@ -19,29 +20,34 @@
             </li>
         </ul>
     </nav>    
-    <div>
+  
         <% if Member.find_by(user_id: current_user) %>
+          
             <% @members.each do |member| %>
                 <% if @nowuser.id == member.user_id %>
                     <% group = Group.find_by(id: member.group_id) %>
-                    <h1>グループ名：</h1> 
-                    <p><%= group.name %></p>
-                    <h1>参加メンバー</h1>
-                    <% @members.each do |member| %>
-                        <% if member.group_id == group.id %>
-                            <% user = User.find_by(id: member.user_id) %>
-                            <% if !user.image.nil? %>
-                                <img src="<%= user.image %>" width="125" height="125">
+                    <div class="list">
+                        <h1><%= group.name %></h1>
+                        <div class="member">
+                            <% @members.each do |member| %>
+                                <% if member.group_id == group.id %>
+                                    <% user = User.find_by(id: member.user_id) %>
+                                    
+                                        <% if !user.image.nil? %>
+                                            <img src="<%= user.image %>">
+                                        <% end %>
+                                        <p><%= user.name %></p>
+                                <% end %>
                             <% end %>
-                            <p><%= user.name %></p>
-                        <% end %>
-                    <% end %>
-                    <form action="/chat" method="get">
-                        <input type="hidden" name="group_id" value="<%= group.id %>">
-                        <input type="submit" value="トークルームへ">
-                    </form>
+                        </div>
+                        <form action="/chat" method="get">
+                            <input type="hidden" name="group_id" value="<%= group.id %>">
+                            <input type="submit" value="トークルームへ">
+                        </form>
+                    </div>
                 <% end %>
             <% end %>
+   
         <% else %>
             <h1>参加しているグループはありません</h1>
         <% end %>
