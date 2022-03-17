@@ -87,25 +87,21 @@
                 <div>
                     <% if !@chats.nil? %>
                        <% @chats.each do |chat| %>
-                           
-                                <% if chat.group_id == @group.id %>
-                                    <% user = User.find_by(id: chat.user_id) %>
-                                    <div class="<% if (user.id == @current_user.id) %>me<% else %>patner<% end %>">
-                                        <% if !user.image.empty? %>
-                                            <div class="icon">
-                                                <img src="<%= user.image %>">
-                                            </div>
-                                        <% end %>
-                                        <!--<p><b><%= user.name %></b></p>-->
-                                        <div class="sb-side">
-                                           <div class="sb-text">
-                                                <p><%= chat.comment %></p>
-                                                <% if !chat.image.nil? %>
-                                                    <a href="<%= chat.image %>" class="image" data-modaal-desc="ディスクリプション"><img src="<%= chat.image %>" width="125" height="125"></a>
-                                                <% end %>
-                                            </div>
+                            <% if chat.group_id == @group.id %>
+                                <% user = User.find_by(id: chat.user_id) %>
+                                <div class="<% if (user.id == @current_user.id) %>me balloon_r<% else %>patner balloon_l<% end %>">
+                                    <% if !user.image.empty? %>
+                                        <div class="icon">
+                                            <img src="<%= user.image %>">
                                         </div>
+                                    <% end %>
+                                    <div class="says">
+                                        <p><%= chat.comment %></p>
+                                        <% if !chat.image.nil? %>
+                                            <a href="<%= chat.image %>" class="image" data-modaal-desc="ディスクリプション"><img src="<%= chat.image %>" width="125" height="125"></a>
+                                        <% end %>
                                     </div>
+                                </div>
                             <% end %>
                         <% end %>
                     <% else %>

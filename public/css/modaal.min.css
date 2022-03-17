@@ -71,7 +71,7 @@ table{
 
 .icon img{
     border-radius: 50%;
-    margin: 5px;
+    margin: 10px;
     flex-basis: auto; 
     width: 50px;
     height: 50px;
@@ -82,16 +82,46 @@ table{
     display: flex;
 }
 
-.sb-side {
-  margin: 0 105px 40px 105px; /* 吹き出しの上下左右の余白 */
+.balloon_l,
+.balloon_r{
+  margin: 30px 0;
+  display:flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-.sb-txt {
-  border: 2px solid #eee; /* 吹き出しの縁取りの太さとカラー */
-  border-radius: 6px; /* 吹き出しを角丸に */
-  background: #fff; /* 吹き出しの背景色 */
-  color: #333; /* 吹き出し内のテキストのカラー */
-  font-size: 15px; /* 吹き出し内のフォントサイズ */
-  line-height: 1.7; /* 吹き出し内のテキストが2行以上になった時の行間 */
-  padding: 18px; /* 吹き出し内の上下左右の余白 */
+
+.says {
+  max-width:500px; /*最大幅は任意*/
+  padding: 17px 13px 15px 18px;
+  border-radius: 12px;
+  background: #99dddd;/*色は任意*/
+  box-sizing:border-box;
+  margin:0 !important;
+  line-height:1.5;
+/*   align-items: center; */
+}
+
+.says p{
+  margin:8px 0 0 !important; 
+}
+.says p:first-child{
+  margin-top:0 !important;
+}
+
+.says:after {
+  content: "";
+  position: absolute;
+  border: 10px solid transparent;
+/*   margin-top:-3px;  */
+}
+
+.balloon_l .says:after {
+  left: 50px;
+  border-right: 22px solid #99dddd;
+}
+
+.balloon_r .says:after {
+  right: 50px;
+  border-left: 22px solid #99dddd;
 }

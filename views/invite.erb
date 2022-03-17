@@ -3,20 +3,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Invite</title>
+	<link rel="stylesheet" href="css/group.css">
 </head>
 <body>
     <h1><%= @nowgroup.name %></h1>
     <h2>参加メンバー</h2>
     <% if !@nowgroup.nil? %>
-        <% @members.each do |member| %>
-            <% if member.group_id == @nowgroup.id %>
-                <% group_user = User.find_by(id: member.user_id) %>
-                <% if !group_user.nil? %>
-                    <img src="<%= group_user.image %>" width="125" height="125">
-                <% end %>            
-                <p><%= group_user.name %></p>
+        <div class="member">
+            <% @members.each do |member| %>
+                <% if member.group_id == @nowgroup.id %>
+                    <% group_user = User.find_by(id: member.user_id) %>
+                    <% if !group_user.nil? %>
+                        <img src="<%= group_user.image %>" width="125" height="125">
+                    <% end %>            
+                    <p><%= group_user.name %></p>
+                <% end %>
             <% end %>
-        <% end %>
+        </div>
     <% end %>
     <h1>メンバーを招待</h1>
     <form action="/invite" method="get">
@@ -24,7 +27,6 @@
         <input type="submit" value="検索">
     </form>
 
-    <p>メンバー：</p>
     <% if !@keyward_users.nil? %>
         <% @keyward_users.each do |user| %>
             <form action="/invite" method="post">
