@@ -149,10 +149,12 @@ end
 
 post "/chat" do
     
-    img=params[:image]
-    tempfile = img[:tempfile]
-    upload = Cloudinary::Uploader.upload(tempfile.path)
-    img_url = upload["url"]
+    if !params[:image].nil?
+        img=params[:image]
+        tempfile = img[:tempfile]
+        upload = Cloudinary::Uploader.upload(tempfile.path)
+        img_url = upload["url"]
+    end
     
     @chat = Chat.create(
         user_id: params[:user_id],
