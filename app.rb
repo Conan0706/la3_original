@@ -204,7 +204,33 @@ post "/task/:id/delete" do
 end
 
 get "/task/done" do
+    if !params[:group_id].nil?
+    @group = Group.find_by(id: params[:group_id])
+    else
+        @group = Group.find_by(id: current_group.id)
+    end
+    @current_user = current_user
+    session[:group] = @group
+    @members = Member.all
+    @group_name = current_group.name
+    @chats = Chat.all
     @tasks = Task.where(done: false)
+    erb :chat
+end
+
+get "/task/date" do
+    if !params[:group_id].nil?
+        @group = Group.find_by(id: params[:group_id])
+    else
+        @group = Group.find_by(id: current_group.id)
+    end
+    @current_user = current_user
+    session[:group] = @group
+    @members = Member.all
+    @group_name = current_group.name
+    @chats = Chat.all
+    tasks_all = Task.all
+    @tasks = tasks_all.order(:due_date)
     erb :chat
 end
 

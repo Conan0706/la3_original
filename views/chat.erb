@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<title>Chat</title>
     <!--CSS-->
-    <link rel="stylesheet" href="css/modaal.min.css">
-    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="/css/modaal.min.css">
+    <link rel="stylesheet" href="/css/chat.css">
     <!--FontAwsome-->
     <script src="https://kit.fontawesome.com/46277915db.js" crossorigin="anonymous"></script>
 </head>
@@ -15,6 +15,7 @@
     <p><a href="/invite">メンバー追加</a></p>
     <h1><%= @group.name %></h1>
         <h1>ToDo</h1>
+        <a href="/chat" method="get">登録順</a>
         <a href="/task/done" method="get">未達成</a>
         <a href="/task/date" method="get">日付</a>
         
@@ -26,35 +27,37 @@
                             <% @tasks.each do |task| %>
                                 <div class="todo">
                                     <% if task.user_id == user.id %>
-                                        
-                                            <tr>
-                                                <td class="name"><p><%= user.name %></p></td>
-                                                <td class="todo"><p><%= task.todo %></p></td>
-                                                <td class><p><%= task.due_date %></p></td>
-                                                <td>
-                                                    <form action="/task/<%= task.id %>/done" method="post">
-                                                        <p><input type="submit" value="<%= task.done %>"></p>
+                                        <tr>
+                                            <td class="name"><p><%= user.name %></p></td>
+                                            <td class="todo"><p><%= task.todo %></p></td>
+                                            <td class><p><%= task.due_date %></p></td>
+                                            <td>
+                                                <form action="/task/<%= task.id %>/done" method="post">
+                                                    <% if task.done == false %>
+                                                        <p><input type="submit"class="fa-regular fa-square" value="&#xf0c8;"></p>
+                                                    <% elsif task.done == true %>
+                                                        <p><input type="submit"class="fa-solid fa-square-check" value="&#xf14a;"></p>
+                                                    <% end %>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <a href="#inline" class="inline">編集</a>
+                                            </td>
+                                            <td>
+                                                <div id="inline" style="display:none;">
+                                                    <form action="/task/<%= task.id %>/edit" method="post">
+                                                        <input type="text" name="todo" value="<%= task.todo %>">
+                                                        <input type="date" name="due_date" value="<%= task.due_date %>">
+                                                        <p><input type="submit" value="変更を確定"></p>
                                                     </form>
-                                                </td>
-                                                <td>
-                                                    <a href="#inline" class="inline">編集</a>
-                                                </td>
-                                                <td>
-                                                    <div id="inline" style="display:none;">
-                                                        <form action="/task/<%= task.id %>/edit" method="post">
-                                                            <input type="text" name="todo" value="<%= task.todo %>">
-                                                            <input type="date" name="due_date" value="<%= task.due_date %>">
-                                                            <p><input type="submit" value="変更を確定"></p>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <form action="/task/<%= task.id %>/delete" method="post">
-                                                        <p><input type="submit" value="削除"></p>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <form action="/task/<%= task.id %>/delete" method="post">
+                                                    <p><input type="submit" value="削除"></p>
+                                                </form>
+                                            </td>
+                                        </tr>
                                     <% end %>
                                 </div>
                             <% end %>
