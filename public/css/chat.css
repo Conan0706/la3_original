@@ -1,0 +1,197 @@
+body{
+   background-color:#FBC687;
+ }
+ .modal-close{
+	position: absolute;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	top: -40px;
+	right: -40px;
+	width: 40px;
+	height: 40px;
+	font-size: 40px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.grid-area {
+  display: grid;
+  height: 100vh;                /* grid全体の高さを設定 */
+  grid-template-rows: 30% 70%;  /* gridの割合が8:2になるよう2行用意 */
+  grid-template-columns: 100%;  /* 横幅いっぱいに1列用意 */
+}
+
+.top-area {
+  grid-row: 1;
+  grid-column: 1;
+  overflow-y: scroll; 
+}
+
+.bottom-area {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+h1{
+    text-align: center;
+}
+
+p{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.todo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+td{
+    text-align: center;
+}
+
+table{
+    margin: 0 auto;
+}
+
+.register{
+    text-align:center;
+}
+
+.chat{
+    padding:0px 60px;
+}
+
+.comment{
+    padding:0px;
+    height:40px;
+    border:1px solid #000;
+    font-size:70px;
+    padding:10px 0px;
+}
+
+.fa-image:before {
+    font-size: 40px;
+    content: "\f03e";
+}
+
+.fa-image{
+    background-color:#EFEFEF;
+    padding:1px 6px;
+}
+
+.filelabel{
+    background: #fff;
+    border: 1px solid #000;
+    border-radius:10px;
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    padding:10px 0px;
+}
+
+.filelabel i{
+    padding: 0px;
+}
+
+.filelabel:hover {
+   opacity: 0.5;              /* 半透明 */
+   border: 2px solid red;     /* 枠線(赤色) */
+   cursor: pointer;           /* マウス形状(ポインタ) */
+}
+#filesend {
+   display: none;  /* 本来のファイル選択フォームは非表示に */
+}
+
+
+.form{
+    text-align:center;
+    position:fixed;
+    vertical-align: middle;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color:#ff9538;
+    padding:40px 0px;
+}
+
+.send{
+    padding:0px;
+    width: 100px;
+    border: 1px solid #000;
+    height: 62px;
+    font-size: 40px;
+}
+
+.common{
+    vertical-align: middle;
+    border-radius:10px;
+    margin:0px 5px;
+    
+}
+
+/*吹き出し*/
+.balloon_l,
+.balloon_r{
+  margin: 30px 0;
+  padding:10px;
+  display:flex;
+  justify-content: flex-start;
+  align-items: flex-start; /*縦位置を上揃え*/
+/*   align-items: center; */ /*縦位置を真ん中揃え*/
+}
+.balloon_r{
+  justify-content:flex-end;
+}
+.faceicon img{
+  margin: 10px;
+  flex-basis: auto; 
+  width: 100px;
+  height: 100px;
+  border-radius:50%;
+}
+.balloon_r .faceicon{
+  margin-left:25px;
+}
+.balloon_l .faceicon{
+  margin-right:25px;
+}
+.balloon_r .faceicon{
+  order:2 !important;
+}
+.says {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 17px 13px 15px 18px;
+  border-radius: 12px;
+  background: white;/*色は任意*/
+  box-sizing:border-box;
+  margin:0 !important;
+  line-height:1.5;
+/*   align-items: center; */
+}
+.says p{
+  margin:8px 0 0 !important; 
+  font-size:20px;
+}
+.says p:first-child{
+  margin-top:0 !important;
+}
+.says:after {
+  content: "";
+  position: absolute;
+  border: 10px solid transparent;
+/*   margin-top:-3px;  */
+}
+.balloon_l .says:after {
+  left: -26px;
+  border-right: 22px solid white;
+}
+.balloon_r .says:after {
+  right: -26px;
+  border-left: 22px solid white;
+}
+

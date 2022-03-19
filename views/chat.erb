@@ -5,6 +5,7 @@
 	<title>Chat</title>
     <!--CSS-->
     <link rel="stylesheet" href="css/modaal.min.css">
+    <link rel="stylesheet" href="css/chat.css">
     <!--FontAwsome-->
     <script src="https://kit.fontawesome.com/46277915db.js" crossorigin="anonymous"></script>
 </head>
@@ -86,15 +87,17 @@
                         <% end %>
                     <% end %>
                 </div>
-                <div>
+                <div class="chat">
                     <% if !@chats.nil? %>
                        <% @chats.each do |chat| %>
                             <% if chat.group_id == @group.id %>
                                 <% user = User.find_by(id: chat.user_id) %>
-                                <div class="<% if (user.id == @current_user.id) %>balloon_r<% else %>balloon_l<% end %>">
+                                <div class="<% if (user.id == @current_user.id) %>balloon_r<% else %>balloon_l<% end %> ">
                                     <% if !user.image.empty? %>
                                         <div class="faceicon">
-                                            <img src="<%= user.image %>">
+                                            <%if user.id != @current_user.id%>
+                                                <img src="<%= user.image %>">
+                                            <% end %>
                                         </div>
                                     <% end %>
                                     <div class="says">
@@ -112,16 +115,16 @@
                 </div>
     <div class="form">
         <form action="/chat" method="post" enctype="multipart/form-data">
-            <input type="text" name="comment">
+            <input type="text" name="comment" class="comment common">
             <input type="hidden" name="user_id" value="<%= @current_user.id %>">
             <input type="hidden" name="group_id" value="<%= @group.id %>">
             <label>
                 <span class="filelabel" title="ファイルを選択">
-                    <i class="fa-regular fa-image"></i>
+                    <i class="fa-regular fa-image common"></i>
                 </span>
                 <input type = "file" name="image" id="filesend" multiple>  
             </label>
-            <input type="submit" value="&#xf1d8;" class="fa-regular">  
+            <input type="submit" value="&#xf1d8;" class="fa-regular send common">  
         </form>
     </div>
         <!--JS-->
