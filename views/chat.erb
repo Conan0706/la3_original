@@ -5,6 +5,8 @@
 	<title>Chat</title>
     <!--CSS-->
     <link rel="stylesheet" href="css/modaal.min.css">
+    <!--FontAwsome-->
+    <script src="https://kit.fontawesome.com/46277915db.js" crossorigin="anonymous"></script>
 </head>
 <body>
     
@@ -113,8 +115,13 @@
             <input type="text" name="comment">
             <input type="hidden" name="user_id" value="<%= @current_user.id %>">
             <input type="hidden" name="group_id" value="<%= @group.id %>">
-            <input type = "file" name="image" placeholder="写真"> 
-            <input type="submit" value="送信">
+            <label>
+                <span class="filelabel" title="ファイルを選択">
+                    <i class="fa-regular fa-image"></i>
+                </span>
+                <input type = "file" name="image" id="filesend" multiple>  
+            </label>
+            <input type="submit" value="&#xf1d8;" class="fa-regular">  
         </form>
     </div>
         <!--JS-->

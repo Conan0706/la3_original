@@ -63,6 +63,26 @@ table{
     text-align:center;
 }
 
+.filelabel {
+   background-color: orange;  /* 背景色 */
+   color: white;              /* 文字色 */
+   border: 2px solid orange;  /* 枠線 */
+   border-radius: 3em;        /* 角丸 */
+   padding: 12px 9px;         /* 内側の余白 */
+   display: inline-block;     /* インラインブロック化 */
+}
+.filelabel img {
+   vertical-align: bottom;    /* 画像の垂直方向の配置 */
+}
+.filelabel:hover {
+   opacity: 0.5;              /* 半透明 */
+   border: 2px solid red;     /* 枠線(赤色) */
+   cursor: pointer;           /* マウス形状(ポインタ) */
+}
+#filesend {
+   display: none;  /* 本来のファイル選択フォームは非表示に */
+}
+
 /*吹き出し*/
 .balloon_l,
 .balloon_r{
@@ -124,4 +144,19 @@ table{
 .balloon_r .says:after {
   right: -26px;
   border-left: 22px solid #fcc868;
+}
+
+.form{
+    text-align:center;
+    margin:30px;
+}
+
+input{
+    font-size:30px;
+}
+
+input[type="submit"]{
+    border-radius: 10px;
+    padding:5px;
+    font-size:30px;
 }
