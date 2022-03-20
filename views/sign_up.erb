@@ -3,15 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Sign up</title>
+	<link rel="stylesheet" href="/css/signup.css">
 </head>
 <body>
     <h1>新規登録</h1>
     <form action="/signup" method="post" enctype="multipart/form-data">
-        名前：<input type="text" name="name" placeholder="ユーザー名">
-        メンター？<input type="checkbox" name="mentor" placeholder="メンター？">
-        アイコン：<input type="file" name="image" placeholder="アイコン">
-        パスワード：<input type="password" name="password" placeholder="パスワード">
-        パスワード確認：<input type="password" name="password_confirmation" placeholder="パスワード確認">
+        <table>
+				<tr>
+					<td class="name"><p>名前:</p></td>
+					<td class="input"><input type="text" name="name" placeholder="ユーザー名"></td>
+				</tr>
+				<tr>
+					<td class="mentor"><p>メンター？</p></td>
+					<td class="input"><input type="checkbox" name="mentor" class="mentor" placeholder="メンター？"></td>
+				</tr>
+				<tr>
+				    <td class="icon"><p>アイコン</p></td>
+				    <td class="input"><input type="file" name="image" placeholder="アイコン"></td>
+				</tr>
+				<tr>
+				    <td class="pass"><p>パスワード：</p></td>
+				    <td class="input"><input type="password" name="password" placeholder="パスワード"></td>
+				</tr>
+				<tr>
+				    <td class="pass_confir"><p>パスワード確認：</p></td>
+				    <td><input type="password" name="password_confirmation" placeholder="パスワード確認"></td>
+				</tr>
+		</table>
         <input type="submit" value="登録">
     </form>
 </body>

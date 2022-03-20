@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    margin: 150px;
+    margin: 200px;
     color: #222222;
 }
 
@@ -21,8 +21,8 @@ form {
     font-size: 40px;
 }
 
-.input{
-    text-align: right;
+.mentor input{
+    text-align:center;
 }
 
 input[type="text"]{
@@ -37,20 +37,17 @@ input[type="submit"]{
     font-size: 20px;
     border-radius: 10px;
     padding: 10px 20px;
-    margin: 10px;
+    margin: 20px;
 }
 
 a{
     display: block;
 }
 
-table{
-    border-spacing: 30px; 
-}
-
 p{
     font-size: 30px;
     font-weight:bold;
+    text-align:left;
 }
 
 .inline{
