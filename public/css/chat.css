@@ -1,6 +1,39 @@
 body{
    background-color:#FBC687;
  }
+ 
+ nav {
+    background: #ff7729;
+
+}
+
+ul{
+    display: flex;
+    padding:0px 10px;
+    justify-content:space-between;
+}
+
+li{
+    list-style: none;
+    padding: 20px;
+    display:flex;
+    justify-content:flex-start;
+}
+
+.back{
+    display: flex;
+    justify-content: flex-start;
+    font-size: 40px;
+    color: white;
+    text-decoration: none;
+}
+
+.add{
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
  .modal-close{
 	position: absolute;
 	display: flex;
@@ -42,10 +75,36 @@ p{
     font-size:15px;
 }
 
+.sort{
+    text-align:center;
+}
+
+.sort a{
+    
+    margin:0px;
+    padding: 0.5em 1em;
+    font-weight: bold;
+    border: solid 3px #000000;
+    background-color:white;
+}
+
+.sort a:hover{
+  background: #979998; /* 少し濃い緑色 */
+  border: solid 4px #747574; /* 少し濃い緑色 */
+}
+
+.sort a:active{
+  background: #979998; /* 濃い緑色 */
+}
+
 .todo{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+table p{
+    font-size:20px;
 }
 
 td{
@@ -56,9 +115,34 @@ table{
     margin: 0 auto;
 }
 
+.pair{
+    font-size:25px;
+    margin:0px 5px;
+}
+
 .register{
     text-align:center;
 }
+
+.register input[type="text"]{
+    border-radius:10px;
+    font-size:30px;
+}
+
+.register input[type="date"]{
+    border-radius:10px;
+    font-size:25px;
+}
+
+.register input[type="submit"]{
+    border-radius:10px;
+    font-size:30px;
+}
+
+.plus{
+    padding:7px 7px;
+}
+
 
 .chat{
     padding:0px 60px;
@@ -104,7 +188,6 @@ table{
 #filesend {
    display: none;  /* 本来のファイル選択フォームは非表示に */
 }
-
 
 .form{
     text-align:center;

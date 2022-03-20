@@ -143,7 +143,7 @@ get "/chat" do
     @members = Member.all
     @group_name = current_group.name
     @chats = Chat.all
-    @tasks = Task.all
+    @tasks = Task.all.order(:id)
     erb :chat
 end
 

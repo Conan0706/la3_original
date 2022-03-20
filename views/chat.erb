@@ -10,14 +10,26 @@
     <script src="https://kit.fontawesome.com/46277915db.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
-    <p><a href="/list">戻る</a></p>
-    <p><a href="/invite">メンバー追加</a></p>
+    <nav>
+        <ul>
+            <li>
+                <p><a href="/list" class="fa-solid fa-circle-chevron-left back"></a></p>
+            </li>
+            <% if current_user.mentor == true %>
+                <li>
+                    <p><a href="/invite" class="add">メンバー追加</a></p>
+                </li>
+            <% end %>
+        </ul>
+    </nav>   
+   
     <h1><%= @group.name %></h1>
         <h1>ToDo</h1>
-        <a href="/chat" method="get">登録順</a>
-        <a href="/task/done" method="get">未達成</a>
-        <a href="/task/date" method="get">日付</a>
+        <div class="sort">
+            <a href="/chat" method="get">登録順</a>
+            <a href="/task/done" method="get">未達成</a>
+            <a href="/task/date" method="get">日付</a>
+        </div>
         
                 <% if !@tasks.nil? %>
                 <table>
@@ -29,19 +41,19 @@
                                     <% if task.user_id == user.id %>
                                         <tr>
                                             <td class="name"><p><%= user.name %></p></td>
-                                            <td class="todo"><p><%= task.todo %></p></td>
+                                            <td class="task"><p><%= task.todo %></p></td>
                                             <td class><p><%= task.due_date %></p></td>
                                             <td>
                                                 <form action="/task/<%= task.id %>/done" method="post">
                                                     <% if task.done == false %>
-                                                        <p><input type="submit"class="fa-regular fa-square" value="&#xf0c8;"></p>
+                                                        <p><input type="submit"class="fa-regular fa-square pair" value="&#xf0c8;"></p>
                                                     <% elsif task.done == true %>
-                                                        <p><input type="submit"class="fa-solid fa-square-check" value="&#xf14a;"></p>
+                                                        <p><input type="submit"class="fa-solid fa-square-check pair" value="&#xf14a;"></p>
                                                     <% end %>
                                                 </form>
                                             </td>
                                             <td>
-                                                <a href="#inline" class="inline">編集</a>
+                                                <a href="#inline" class="inline fa-solid fa-pen pair"></a>
                                             </td>
                                             <td>
                                                 <div id="inline" style="display:none;">
@@ -54,7 +66,7 @@
                                             </td>
                                             <td>
                                                 <form action="/task/<%= task.id %>/delete" method="post">
-                                                    <p><input type="submit" value="削除"></p>
+                                                    <p><input type="submit" value="&#xf2ed;" class="fa-solid fa-trash-can pair"></p>
                                                 </form>
                                             </td>
                                         </tr>
@@ -67,15 +79,13 @@
                 <% else %>
                     <p>タスクがありません</p>
                 <% end %>
-                <div class="register">
-                    <form action="/task" method="post">
+                    <form action="/task" method="post" class="register">
                         <input type="text" name="todo" placeholder="タスク内容">
                         <input type="date" name="due_date" placeholder="締め切り">
                         <input type="hidden" name="user_id" value="<%= current_user.id %>">
                         <input type="hidden" name="done" value="false">
-                        <input type="submit" value="作成！">
+                        <input type="submit" value="&#xf055;" class="fa-solid fa-circle-plus plus">
                     </form>
-                </div>
 
                 <div>
                     <h1><%= @group_name %></h1>
