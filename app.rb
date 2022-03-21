@@ -47,10 +47,16 @@ end
 
 
 post "/signup" do
+    if params[:image].nil?
+        img_url = "/img/hito.png"
+        
+    else
     img=params[:image]
     tempfile = img[:tempfile]
     upload = Cloudinary::Uploader.upload(tempfile.path)
     img_url = upload["url"]
+    
+    end
     
     User.create(
         name: params[:name],
